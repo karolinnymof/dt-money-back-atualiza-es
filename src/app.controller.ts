@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service';
-import { CreateTransactionDTO } from './dto/create-transaction.dto';
+import { CreateTransactionDTO, UpdateTransactionDTO } from './dto/create-transaction.dto';
 
 @Controller('/app/transaction')
 export class AppController {
@@ -16,4 +16,19 @@ export class AppController {
     const transactions = await this.appService.listAll();
     return transactions;
   }
+
+  @Put(':id')
+async updateTransaction(
+  @Param('id') id: string,
+  @Body() data: UpdateTransactionDTO
+) {
+  return this.appService.updateTransaction(id, data);
 }
+
+
+  @Delete(':id')
+  async deleteTransaction(@Param('id') id: string) {
+    return this.appService.deleteTransaction(id);
+  }
+}
+

@@ -22,4 +22,19 @@ export class AppService {
     });
     return transactions;
   }
+
+  async updateTransaction(id: string, data: Partial<CreateTransactionDTO>) {
+    const updatedTransaction = await this.prismaService.transaction.update({
+      where: { id },
+      data,
+    });
+    return updatedTransaction;
+  }
+
+  async deleteTransaction(id: string) {
+    const deletedTransaction = await this.prismaService.transaction.delete({
+      where: { id },
+    });
+    return deletedTransaction;
+  }
 }
